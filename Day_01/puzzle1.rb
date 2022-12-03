@@ -21,7 +21,7 @@ end
 
 total_calories.each do |total|
   if total > max_calories
-  max_calories = total;
+    max_calories = total;
   end
 end
 
