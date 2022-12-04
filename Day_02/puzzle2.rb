@@ -1,26 +1,43 @@
 file_data = File.read("input2.txt");
-rucksacks = [];
-item_type =  ('a'..'z').to_a + ('A'..'Z').to_a;
-rucksacks = file_data.split(/\n/);
-groups = rucksacks.each_slice(3).to_a;
-badges = [];
-priority = 0;
-total_priorities = 0;
+rounds = [];
+score = 0;
 
-groups.each do |group|
-  member_rucksacks = group.each.to_a;
-  
-  member_rucksacks[0].split("").each do |item|
-    if((member_rucksacks[1].include? item) && (member_rucksacks[2].include? item))
-      badges.push(item);
-      break;
+rounds = file_data.split(/\n/);
+
+rounds.each do |round|
+  round_moves = round.split;
+
+  case round_moves[0]
+  when 'A'
+    case round_moves[1]
+    when 'X'
+      score = score + 3 + 0
+    when 'Y'
+      score = score + 1 + 3
+    when 'Z'
+      score = score + 2 + 6
+    end
+
+  when 'B'
+    case round_moves[1]
+    when 'X'
+      score = score + 1 + 0
+    when 'Y'
+      score = score + 2 + 3
+    when 'Z'
+      score = score + 3 + 6
+    end
+
+  when 'C'
+    case round_moves[1]
+    when 'X'
+      score = score + 2 + 0
+    when 'Y'
+      score = score + 3 + 3
+    when 'Z'
+      score = score + 1 + 6
     end
   end
 end
 
-badges.each do |item|
-  priority = (item_type.index item ) + 1;
-  total_priorities = total_priorities + priority;
-end
-
-puts total_priorities;
+puts score;

@@ -1,29 +1,43 @@
 file_data = File.read("input1.txt");
-rucksacks = [];
-item_type =  ('a'..'z').to_a + ('A'..'Z').to_a;
-rucksacks = file_data.split(/\n/);
-wrong_items = [];
-priority = 0;
-total_priorities = 0;
+rounds = [];
+score = 0;
 
+rounds = file_data.split(/\n/);
 
-rucksacks.each do |rucksack|
-  compartments=[];
-  items = rucksack.split('');
-  compartments[0] = items[0..items.length/2-1];
-  compartments[1] = items[items.length/2..items.length];
+rounds.each do |round|
+  round_moves = round.split;
 
-  compartments[0].each do |item|
-    if compartments[1].include?(item);
-      wrong_items.push(item);
-      break;
+  case round_moves[0]
+  when 'A'
+    case round_moves[1]
+    when 'X'
+      score = score + 1 + 3
+    when 'Y'
+      score = score + 2 + 6
+    when 'Z'
+      score = score + 3 + 0
+    end
+
+  when 'B'
+    case round_moves[1]
+    when 'X'
+      score = score + 1 + 0
+    when 'Y'
+      score = score + 2 + 3
+    when 'Z'
+      score = score + 3 + 6
+    end
+
+  when 'C'
+    case round_moves[1]
+    when 'X'
+      score = score + 1 + 6
+    when 'Y'
+      score = score + 2 + 0
+    when 'Z'
+      score = score + 3 + 3
     end
   end
 end
 
-wrong_items.each do |item|
-  priority = (item_type.index item ) + 1;
-  total_priorities = total_priorities + priority;
-end
-
-puts total_priorities;
+puts score;
